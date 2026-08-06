@@ -277,3 +277,4 @@ git log --oneline --graph --all
 - [ ] 실행 화면 캡처
 - [ ] 저장소 `clone` 실습
 - [ ] 기존 저장소에서 `pull` 실습
+> Git 저장소 clone 및 pull 실습을 완료했습니다.
