@@ -220,6 +220,22 @@ class QuizGame:
                 print("\n입력이 중단되었습니다.")
                 return None
 
+    def get_text(self, message):
+        """빈 값이 아닌 문자열을 입력받는다."""
+        while True:
+            try:
+                text = input(message).strip()
+
+                if text == "":
+                    print("빈 값은 입력할 수 없습니다.")
+                    continue
+
+                return text
+
+            except (KeyboardInterrupt, EOFError):
+                print("\n입력이 중단되었습니다.")
+                return None
+
     def play_quiz(self):
         """저장된 퀴즈를 순서대로 출제한다."""
         if not self.quizzes:
@@ -273,6 +289,53 @@ class QuizGame:
         self.save_state()
         print("=" * 40)
 
+    def add_quiz(self):
+        """새로운 퀴즈를 입력받아 저장한다."""
+        print()
+        print("=" * 40)
+        print("새로운 퀴즈를 추가합니다.")
+        print("=" * 40)
+
+        question = self.get_text("문제를 입력하세요: ")
+
+        if question is None:
+            print("퀴즈 추가를 취소합니다.")
+            return
+
+        choices = []
+
+        for number in range(1, 5):
+            choice = self.get_text(f"선택지 {number}: ")
+
+            if choice is None:
+                print("퀴즈 추가를 취소합니다.")
+                return
+
+            choices.append(choice)
+
+        answer = self.get_number(
+            message="정답 번호를 입력하세요 (1~4): ",
+            minimum=1,
+            maximum=4,
+        )
+
+        if answer is None:
+            print("퀴즈 추가를 취소합니다.")
+            return
+
+        new_quiz = Quiz(
+            question=question,
+            choices=choices,
+            answer=answer,
+        )
+
+        self.quizzes.append(new_quiz)
+
+        if self.save_state():
+            print()
+            print("퀴즈가 추가되고 저장되었습니다.")
+            print(f"현재 등록된 퀴즈: {len(self.quizzes)}개")
+
     def run(self):
         """퀴즈 게임을 실행한다."""
         while True:
@@ -293,7 +356,7 @@ class QuizGame:
                 self.play_quiz()
 
             elif choice == 2:
-                print("\n퀴즈 추가 기능은 준비 중입니다.")
+                self.add_quiz()
 
             elif choice == 3:
                 print(
