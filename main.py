@@ -354,6 +354,20 @@ class QuizGame:
 
         print("=" * 40)
 
+    def show_score(self):
+        """현재 저장된 최고 점수를 출력한다."""
+        print()
+        print("=" * 40)
+        print("최고 점수 확인")
+        print("=" * 40)
+
+        if self.best_score is None:
+            print("아직 퀴즈를 푼 기록이 없습니다.")
+        else:
+            print(f"최고 점수: {self.best_score}점")
+
+        print("=" * 40)        
+
     def run(self):
         """퀴즈 게임을 실행한다."""
         while True:
@@ -380,7 +394,7 @@ class QuizGame:
                 self.show_quiz_list()
 
             elif choice == 4:
-                print("\n점수 확인 기능은 준비중입니다.")
+                self.show_score()
 
             elif choice == 5:
                 self.save_state()
