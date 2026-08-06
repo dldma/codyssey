@@ -130,6 +130,16 @@ python main.py
 
 ```text
 E_2_Project/
+├── docs/
+│   └── screenshots/
+│       ├── add_quiz.png
+│       ├── clone_pull.png
+│       ├── environment.png
+│       ├── git_log.png
+│       ├── menu.png
+│       ├── play.png
+│       ├── puiz_list.png
+│       └── score.png
 ├── main.py
 ├── state.json
 ├── README.md
@@ -161,7 +171,11 @@ E_2_Project/
 
 ### `MISSION.md`
 
-E-2 과제의 전체 미션 내용과 요구사항을 정리한 문서입니다.
+E-2 과제의 전체 미션 내용과 요구 사항을 정리한 문서입니다.
+
+### `docs/screenshots`
+
+프로그램 실행 화면과 Git 작업 기록을 저장한 폴더입니다.
 
 ## 클래스 구조
 
@@ -235,7 +249,7 @@ E-2 과제의 전체 미션 내용과 요구사항을 정리한 문서입니다.
 
 ## Git 작업
 
-이 프로젝트에서는 다음 Git 명령어를 사용합니다.
+이 프로젝트에서는 다음 Git 명령어를 사용했습니다.
 
 ```text
 git init
@@ -248,13 +262,65 @@ git clone
 git merge
 ```
 
-기능별로 커밋을 작성하고, 별도의 브랜치에서 퀴즈 풀기 기능을 개발한 뒤 `main` 브랜치에 병합했습니다.
+기능별로 커밋을 작성하고, 별도의 브랜치에서 기능을 개발한 뒤 `main` 브랜치에 병합했습니다.
 
 Git 작업 기록은 다음 명령어로 확인할 수 있습니다.
 
 ```bash
 git log --oneline --graph --all
 ```
+
+GitHub 저장소를 별도의 로컬 폴더에 `clone`한 뒤 README를 수정하여 `push`하고, 기존 프로젝트 폴더에서 `pull`로 변경 사항을 가져오는 실습도 완료했습니다.
+
+## 실행 화면
+
+### 개발 환경
+
+VS Code 프로젝트 파일과 Python 및 Git 버전을 확인한 화면입니다.
+
+![개발 환경](./docs/screenshots/environment.png)
+
+### 메인 메뉴
+
+프로그램을 실행하면 퀴즈 풀기, 퀴즈 추가, 퀴즈 목록, 점수 확인, 종료 메뉴가 출력됩니다.
+
+![메인 메뉴](./docs/screenshots/menu.png)
+
+### 퀴즈 풀기
+
+저장된 퀴즈를 풀고 각 문제의 정답 여부와 최종 점수를 확인할 수 있습니다.
+
+![퀴즈 풀기](./docs/screenshots/play.png)
+
+### 퀴즈 추가
+
+문제, 선택지 4개, 정답 번호를 입력하여 새로운 퀴즈를 추가할 수 있습니다.
+
+![퀴즈 추가](./docs/screenshots/add_quiz.png)
+
+### 퀴즈 목록
+
+기본 퀴즈와 사용자가 추가한 퀴즈를 목록으로 확인할 수 있습니다.
+
+![퀴즈 목록](./docs/screenshots/puiz_list.png)
+
+### 최고 점수 확인
+
+퀴즈를 풀면서 기록한 최고 점수를 확인할 수 있습니다.
+
+![최고 점수](./docs/screenshots/score.png)
+
+### Git 커밋 및 브랜치 기록
+
+기능 단위로 작성한 커밋과 브랜치 생성 및 병합 기록입니다.
+
+![Git 기록](./docs/screenshots/git_log.png)
+
+### Clone 및 Pull 실습
+
+GitHub 저장소를 새로운 폴더에 복제하고 기존 프로젝트에서 변경 사항을 가져온 기록입니다.
+
+![Clone 및 Pull 기록](./docs/screenshots/clone_pull.png)
 
 ## 진행 상태
 
@@ -274,7 +340,6 @@ git log --oneline --graph --all
 - [x] 파일 오류 처리 구현
 - [x] 10개 이상의 커밋 작성
 - [x] 브랜치 생성 및 병합
-- [ ] 실행 화면 캡처
-- [ ] 저장소 `clone` 실습
-- [ ] 기존 저장소에서 `pull` 실습
-> Git 저장소 clone 및 pull 실습을 완료했습니다.
+- [x] 실행 화면 캡처
+- [x] 저장소 `clone` 실습
+- [x] 기존 저장소에서 `pull` 실습
