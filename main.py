@@ -335,6 +335,24 @@ class QuizGame:
             print()
             print("퀴즈가 추가되고 저장되었습니다.")
             print(f"현재 등록된 퀴즈: {len(self.quizzes)}개")
+    def show_quiz_list(self):
+        """저장된 퀴즈 목록을 출력한다."""
+        print()
+        print("=" * 40)
+        print("등록된 퀴즈 목록")
+        print("=" * 40)
+
+        if not self.quizzes:
+            print("등록된 퀴즈가 없습니다.")
+            return
+
+        print(f"총 {len(self.quizzes)}개의 퀴즈가 있습니다.")
+        print()
+
+        for number, quiz in enumerate(self.quizzes, start=1):
+            print(f"[{number}] {quiz.question}")
+
+        print("=" * 40)
 
     def run(self):
         """퀴즈 게임을 실행한다."""
@@ -359,13 +377,10 @@ class QuizGame:
                 self.add_quiz()
 
             elif choice == 3:
-                print(
-                    f"\n현재 등록된 퀴즈는 "
-                    f"{len(self.quizzes)}개입니다."
-                )
+                self.show_quiz_list()
 
             elif choice == 4:
-                print("\n점수 확인 기능은 준비 중입니다.")
+                print("\n점수 확인 기능은 준비중입니다.")
 
             elif choice == 5:
                 self.save_state()
