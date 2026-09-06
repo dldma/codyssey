@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<!-- 브라우저 설정 -->
+<head>
+    <!-- 한글 문자 인코딩, 모바일 화면 크기에 맞춰 반응형으로 표시 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>B1-1 Portfolio</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/script.js" defer></script>
+</head>
+
+<!-- 웹 페이지 본문 -->
+<body>
+
+    <!-- 페이지 상단 영역 -->
+    <header>    <!-- 머리말 -->
+        <nav>   <!-- 페이지 이동 영역 -->
+            <!-- 사이트 로고 -->
+            <a href="#hero">My Portfolio</a>
+
+            <!-- 네비게이션 메뉴 -->
+            <ul>    <!-- 순서가 중요하지않은 목록을 나열 할 떄 사용-->
+                <!-- about 버튼 클릭, id가 about 인 찾기, section 이동-->
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <!-- 네비게이션 버튼 -->
+            <div class="nav-buttons">
+
+                <!-- 다크 모드 버튼 -->
+                <button type="button" id="theme-toggle" aria-label="다크 모드 전환">
+                    🌙
+                </button>
+
+                <!-- 모바일 햄버거 메뉴 버튼 -->
+                <button type="button" id="menu-toggle" aria-label="메뉴 열기">
+                    ☰
+                </button>
+
+            </div>
+        </nav>
+    </header>
+
+    <!-- 페이지의 주요 내용 -->
+    <main>
+
+        <!-- 첫 화면 -->
+        <section id="hero">
+
+            <!-- 메인 인사말 -->
+            <h1>안녕하세요, 이은지입니다.</h1>
+
+            <!-- 간단한 자기소개 -->
+            <p>
+                정보전기전자공학을 전공하고 있으며,
+                임베디드 개발자를 목표로 공부하고 있습니다.
+            </p>
+
+            <!-- 주요 이동 버튼 -->
+            <a href="#projects">프로젝트 보기</a>
+            <a href="#contact">문의하기</a>
+            
+        </section>
+
+        <!-- 자기소개 -->
+        <section id="about">
+            <!-- 섹션 제목 -->
+            <h2>About Me</h2>
+
+            <!-- 프로필 이미지 -->
+            <!-- "alt" 이미지 로드 실패 시 표시-->
+            <img src="images/profile.jpg" alt="이은지 프로필 사진">
+
+            <!-- 자기소개 -->
+            <p>
+                안녕하세요. 정보전기전자공학을 전공하고 있는 이은지입니다.
+                임베디드 시스템과 전자회로, 웹 개발을 공부하고 있으며
+                다양한 프로젝트를 통해 개발 경험을 쌓고 있습니다.
+            </p>
+        </section>
+
+        <!-- 기술 스택 -->
+        <section id="skills">
+            <h2>Skills</h2>
+
+            <!-- Software Skills -->
+            <h3>Software</h3>
+            <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>C</li>
+                <li>Python</li>
+                <li>Git</li>
+            </ul>
+
+            <!-- Hardware & Electronics Skills -->
+            <h3>Hardware & Electronics</h3>
+
+            <ul>
+                <li>
+                    <strong>Embedded Systems</strong>
+                    - 마이크로컨트롤러와 센서를 활용한 임베디드 시스템 구현
+                </li>
+
+                <li>
+                    <strong>Microcontroller</strong>
+                    - ATmega128A 등 MCU를 활용한 입출력 제어 및 주변장치 연동
+                </li>
+
+                <li>
+                    <strong>Circuit Design</strong>
+                    - 전자회로를 구성하고 회로 동작을 분석하여 필요한 기능 구현
+                </li>
+
+                <li>
+                    <strong>Sensor Integration</strong>
+                    - 로드셀, 적외선 센서, 수위 센서 등 다양한 센서 데이터 수집 및 연동
+                </li>
+
+                <li>
+                    <strong>Soldering</strong>
+                    - 전자부품 및 회로를 직접 납땜하여 시제품 제작 및 회로 구성
+                </li>
+
+                <li>
+                    <strong>PCB / Schematic Design</strong>
+                    - EasyEDA 등을 활용한 회로도 작성 및 PCB 설계
+                </li>
+
+                <li>
+                    <strong>3D CAD</strong>
+                    - Rhino 등을 활용한 제품 외형 및 하드웨어 구조 설계
+                </li>
+            </ul>
+        </section>
+
+        <!-- 프로젝트 -->
+        <section id="projects">
+
+            <!-- 섹션 제목 -->
+            <h2>Projects</h2>
+
+            <!-- 프로젝트 목록 -->
+            <div id="project-list">
+
+                <!-- 프로젝트 카드 예시 -->
+                <article class="project-card">
+                    <h3>Project Title</h3>
+                    <p>프로젝트 설명이 들어가는 영역입니다.</p>
+                    <a href="#">GitHub 보기</a>
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- 문의 -->
+        <section id="contact">
+
+            <!-- 섹션 제목 -->
+            <h2>Contact</h2>
+
+            <!-- 문의 폼 -->
+            <form id="contact-form">
+
+                <div>
+                    <label for="name">이름</label>
+                    <input type="text" id="name" name="name">
+                    <p class="error-message" id="name-error"></p>
+                </div>
+
+                <div>
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" name="email">
+                    <p class="error-message" id="email-error"></p>
+                </div>
+
+                <div>
+                    <label for="message">메시지</label>
+                    <textarea id="message" name="message"></textarea>
+                    <p class="error-message" id="message-error"></p>
+                </div>
+
+                <button type="submit">보내기</button>
+
+                <p id="form-success"></p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <!-- 페이지 하단 영역 -->
+    <footer>
+
+        <!-- 저작권 -->
+        <p>&copy; 2026 이은지. All rights reserved.</p>
+
+        <!-- 소셜 링크 -->
+        <nav>
+            <a href="https://github.com/dldma"
+            target="_blank"
+            rel="noopener noreferrer">
+                GitHub
+            </a>
+        </nav>
+
+    </footer>
+</body>
+
+
+</html>
