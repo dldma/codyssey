@@ -18,14 +18,14 @@
 <body>
 
     <!-- 페이지 상단 영역 -->
-    <header>    <!-- 머리말 -->
-        <nav>   <!-- 페이지 이동 영역 -->
+    <header>
+        <nav class="navbar">
+
             <!-- 사이트 로고 -->
-            <a href="#hero">My Portfolio</a>
+            <a href="#hero" class="logo">My Portfolio</a>
 
             <!-- 네비게이션 메뉴 -->
-            <ul>    <!-- 순서가 중요하지않은 목록을 나열 할 떄 사용-->
-                <!-- about 버튼 클릭, id가 about 인 찾기, section 이동-->
+            <ul class="nav-menu">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
@@ -36,16 +36,23 @@
             <div class="nav-buttons">
 
                 <!-- 다크 모드 버튼 -->
-                <button type="button" id="theme-toggle" aria-label="다크 모드 전환">
+                <button
+                    type="button"
+                    id="theme-toggle"
+                    aria-label="다크 모드 전환">
                     🌙
                 </button>
 
                 <!-- 모바일 햄버거 메뉴 버튼 -->
-                <button type="button" id="menu-toggle" aria-label="메뉴 열기">
+                <button
+                    type="button"
+                    id="menu-toggle"
+                    aria-label="메뉴 열기">
                     ☰
                 </button>
 
             </div>
+
         </nav>
     </header>
 
@@ -65,30 +72,35 @@
             </p>
 
             <!-- 주요 이동 버튼 -->
-            <a href="#projects">프로젝트 보기</a>
-            <a href="#contact">문의하기</a>
+            <!-- 주요 이동 버튼 -->
+            <div class="hero-buttons">
+                <a href="#projects" class="primary-button">프로젝트 보기</a>
+                <a href="#contact" class="secondary-button">문의하기</a>
+            </div>
             
         </section>
 
         <!-- 자기소개 -->
-        <section id="about">
+        <section id="about" class="reveal">
             <!-- 섹션 제목 -->
             <h2>About Me</h2>
 
-            <!-- 프로필 이미지 -->
-            <!-- "alt" 이미지 로드 실패 시 표시-->
-            <img src="images/profile.jpg" alt="이은지 프로필 사진">
+            
+            <div class="about-content">
+                <!-- 프로필 이미지, "alt" 이미지 로드 실패 시 표시-->
+                <img src="images/profile.jpg" alt="이은지 프로필 사진">
 
-            <!-- 자기소개 -->
-            <p>
-                안녕하세요. 정보전기전자공학을 전공하고 있는 이은지입니다.
-                임베디드 시스템과 전자회로, 웹 개발을 공부하고 있으며
-                다양한 프로젝트를 통해 개발 경험을 쌓고 있습니다.
-            </p>
+                <p>
+                    안녕하세요. 정보전기전자공학을 전공하고 있는 이은지입니다.
+                    임베디드 시스템과 전자회로에 관심이 있으며,
+                    다양한 프로젝트를 통해 개발 경험을 쌓고 있습니다.
+                </p>
+
+            </div>
         </section>
 
         <!-- 기술 스택 -->
-        <section id="skills">
+        <section id="skills" class="reveal">
             <h2>Skills</h2>
 
             <!-- Software Skills -->
@@ -144,21 +156,13 @@
         </section>
 
         <!-- 프로젝트 -->
-        <section id="projects">
+        <section id="projects" class="reveal" >
 
             <!-- 섹션 제목 -->
             <h2>Projects</h2>
 
-            <!-- 프로젝트 목록 -->
+            <!-- GitHub API에서 가져온 프로젝트가 표시될 영역 -->
             <div id="project-list">
-
-                <!-- 프로젝트 카드 예시 -->
-                <article class="project-card">
-                    <h3>Project Title</h3>
-                    <p>프로젝트 설명이 들어가는 영역입니다.</p>
-                    <a href="#">GitHub 보기</a>
-                </article>
-
             </div>
 
         </section>
@@ -215,7 +219,14 @@
             </a>
         </nav>
 
-    </footer>
+    </footer><!-- 맨 위로 이동 버튼 -->
+
+    <button
+        type="button"
+        id="scroll-top"
+        aria-label="페이지 맨 위로 이동">
+        ↑
+    </button>
 </body>
 
 

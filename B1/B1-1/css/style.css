@@ -60,6 +60,20 @@ body {
 header {
     width: 100%;
     background-color: var(--background-color);
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* 스크롤 후 Header 스타일 */
+header.scrolled {
+    background-color: var(--background-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .navbar {
@@ -86,6 +100,23 @@ header {
 .nav-menu {
     display: none;
     list-style: none;
+}
+
+
+.nav-menu.active {
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+    top: 70px;
+    left: 0;
+
+    width: 100%;
+    padding: 20px;
+
+    background-color: var(--background-color);
+
+    gap: 16px;
 }
 
 
@@ -359,4 +390,245 @@ header {
 
 .project-card a:hover {
     text-decoration: underline;
+}
+
+/* =========================
+   Contact Section
+========================= */
+
+#contact {
+    padding: var(--section-padding);
+}
+
+#contact h2 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#contact-form {
+    max-width: 700px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#contact-form div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#contact-form label {
+    font-weight: bold;
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    font: inherit;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+#contact-form textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+    outline: none;
+
+    border-color: var(--primary-color);
+
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.error-message {
+    min-height: 20px;
+    color: #dc2626;
+    font-size: 0.85rem;
+}
+
+#contact-form button {
+    align-self: flex-start;
+
+    padding: 12px 24px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: var(--primary-color);
+    color: #ffffff;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+#contact-form button:hover {
+    transform: translateY(-3px);
+    opacity: 0.9;
+}
+
+#form-success {
+    min-height: 24px;
+
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* =========================
+   Footer
+========================= */
+
+footer {
+    padding: 24px 20px;
+
+    background-color: var(--secondary-color);
+
+    text-align: center;
+}
+
+footer p {
+    margin-bottom: 12px;
+}
+
+footer nav {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+footer a {
+    color: var(--primary-color);
+
+    text-decoration: none;
+    font-weight: bold;
+
+    transition: opacity 0.3s ease;
+}
+
+footer a:hover {
+    opacity: 0.7;
+}
+
+/* =========================
+   Scroll To Top Button
+========================= */
+
+#scroll-top {
+    display: none;
+
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 50%;
+
+    background-color: var(--primary-color);
+    color: #ffffff;
+
+    font-size: 1.3rem;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+/* 스크롤 위치가 기준을 넘으면 버튼 표시 */
+#scroll-top.show {
+    display: block;
+}
+
+#scroll-top:hover {
+    transform: translateY(-3px);
+}
+
+
+/* =========================
+   Scroll Animation
+========================= */
+
+/* 화면에 나타나기 전 */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+}
+
+/* 화면에 나타난 후 */
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   Project Status
+========================= */
+
+.project-status {
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    padding: 32px 20px;
+
+    color: var(--text-color);
+}
+
+
+/* 다시 시도 버튼 */
+#retry-projects {
+    margin-top: 16px;
+
+    padding: 10px 20px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: var(--primary-color);
+    color: #ffffff;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+#retry-projects:hover {
+    transform: translateY(-3px);
+    opacity: 0.9;
 }
