@@ -2535,3 +2535,223 @@ JavaScript 기본 기능
 ```
 
 다음 단계에서는 지금까지 작성한 정적인 Project 영역에 실제 데이터를 연결하는 작업을 별도로 진행한다.
+
+
+# 외부 API 연동 과정
+
+# 69. GitHub API 연동 시작
+
+Portfolio의 Projects 영역에 직접 작성한 프로젝트 정보를 표시하는 대신,
+GitHub API를 사용하여 실제 GitHub Repository 목록을 불러오도록 구성했다.
+
+GitHub 사용자 이름은 JavaScript 변수로 관리했다.
+
+```javascript
+const githubUsername = 'dldma';
+```
+
+GitHub Repository 정보를 가져오기 위해 다음 API 주소를 사용했다.
+
+```text
+https://api.github.com/users/dldma/repos
+```
+
+이를 통해 공개 상태인 GitHub Repository 정보를 JSON 형식으로 받아올 수 있다.
+
+
+# 70. Project 출력 영역 구성
+
+GitHub API에서 받아온 Repository를 JavaScript로 출력하기 위해
+HTML의 Projects 영역에 별도의 출력 공간을 만들었다.
+
+```html
+<div id="project-list">
+</div>
+```
+
+JavaScript에서는 `querySelector()`를 사용하여 해당 요소를 선택했다.
+
+```javascript
+const projectList = document.querySelector('#project-list');
+```
+
+이 영역의 `innerHTML`을 변경하여 Loading, Success, Error, Empty 상태를 화면에 표시하도록 구성했다.
+
+
+# 71. Loading 상태 구현
+
+API 요청은 서버로부터 데이터를 받아오는 데 시간이 필요하기 때문에
+데이터를 기다리는 동안 사용자에게 현재 상태를 알려주는 Loading 화면을 구현했다.
+
+```javascript
+const renderLoading = () => {
+    projectList.innerHTML = `
+        <p class="project-status">
+            프로젝트를 불러오는 중...
+        </p>
+    `;
+};
+```
+
+API 호출을 시작하기 전에 `renderLoading()`을 실행하여
+Repository 데이터를 기다리는 동안 Loading 메시지가 표시되도록 했다.
+
+
+# 72. fetch와 async/await를 이용한 API 요청
+
+GitHub API 호출에는 `fetch()`를 사용했다.
+
+비동기 작업을 처리하기 위해 함수에 `async`를 사용하고,
+API 응답을 기다리기 위해 `await`를 사용했다.
+
+```javascript
+const fetchProjects = async () => {
+    renderLoading();
+
+    const response = await fetch(
+        `https://api.github.com/users/${githubUsername}/repos`
+    );
+};
+```
+
+템플릿 리터럴을 사용하여 GitHub 사용자 이름을 API 주소에 동적으로 삽입했다.
+
+
+# 73. API 요청 오류 확인
+
+GitHub 서버에서 정상적인 응답을 받았는지 확인하기 위해
+`response.ok` 값을 사용했다.
+
+```javascript
+if (!response.ok) {
+    throw new Error(
+        `GitHub API 요청 실패: ${response.status}`
+    );
+}
+```
+
+정상적인 응답이 아닐 경우 `throw`를 사용하여 오류를 발생시키고,
+해당 오류가 `catch` 영역에서 처리되도록 구성했다.
+
+
+# 74. JSON 데이터 변환 및 Repository 카드 생성
+
+GitHub API에서 받은 응답 데이터를 JavaScript에서 사용할 수 있도록
+JSON 데이터를 배열 형태로 변환했다.
+
+```javascript
+const repos = await response.json();
+```
+
+각 Repository 데이터를 Project Card로 변환하기 위해 `map()`을 사용했다.
+
+Repository 객체에서 필요한 데이터는 구조분해 할당을 통해 가져왔다.
+
+```javascript
+const {
+    name,
+    description,
+    html_url,
+    language,
+    stargazers_count
+} = repo;
+```
+
+각 Repository마다 다음 정보를 Project Card에 표시했다.
+
+- Repository 이름
+- Repository 설명
+- 사용 언어
+- Star 개수
+- GitHub Repository 링크
+
+`map()`으로 생성된 HTML 문자열 배열은 `join('')`을 사용하여 하나의 문자열로 합친 뒤
+`projectList.innerHTML`에 출력했다.
+
+
+# 75. Empty 상태 처리
+
+GitHub Repository가 하나도 존재하지 않는 경우를 처리하기 위해
+Repository 배열의 길이를 확인했다.
+
+```javascript
+if (repos.length === 0) {
+    projectList.innerHTML = `
+        <p class="project-status">
+            표시할 프로젝트가 없습니다.
+        </p>
+    `;
+
+    return;
+}
+```
+
+이를 통해 API 요청에는 성공했지만 표시할 Repository가 없는 상황도
+사용자에게 명확하게 안내하도록 구성했다.
+
+
+# 76. Error 상태와 다시 시도 기능 구현
+
+API 요청에 실패하는 상황을 처리하기 위해 `try / catch`를 사용했다.
+
+오류가 발생하면 다음 메시지와 다시 시도 버튼이 표시되도록 했다.
+
+```text
+프로젝트를 불러올 수 없습니다.
+
+[ 다시 시도 ]
+```
+
+다시 시도 버튼을 클릭하면 `fetchProjects()`를 다시 실행하여
+GitHub API에 새로운 요청을 보내도록 구현했다.
+
+이를 통해 일시적인 네트워크 오류나 API 요청 실패 상황에서도
+사용자가 직접 다시 데이터를 불러올 수 있도록 했다.
+
+
+# 77. API 상태별 화면 구성
+
+GitHub API 연동 과정에서 다음 네 가지 상태를 구현했다.
+
+```text
+Loading
+→ 프로젝트를 불러오는 중...
+
+Success
+→ GitHub Repository를 Project Card 형태로 출력
+
+Error
+→ 프로젝트를 불러올 수 없습니다.
+   다시 시도 버튼 제공
+
+Empty
+→ 표시할 프로젝트가 없습니다.
+```
+
+각 상태에 따라 `project-list` 영역의 화면이 변경되도록 구성했다.
+
+
+# 78. GitHub Repository 공개 범위 정리
+
+Portfolio에는 GitHub API를 통해 공개 Repository만 표시된다.
+
+공개할 필요가 없는 `evaluation_criteria` Repository는
+GitHub에서 Private Repository로 변경했다.
+
+따라서 Portfolio의 Projects 영역에는 공개 상태인 Repository만 표시되도록 정리했다.
+
+
+# 79. 외부 API 연동 최종 확인
+
+GitHub API 연동 후 다음 기능을 최종 확인했다.
+
+- API 요청 중 Loading 메시지 표시
+- GitHub Repository 데이터 정상 호출
+- Repository별 Project Card 생성
+- Repository 링크 정상 이동
+- Repository가 없는 경우 Empty 상태 표시
+- API 요청 실패 시 Error 상태 표시
+- 다시 시도 버튼 동작 확인
+- Private Repository가 Portfolio에 표시되지 않는 것 확인
+
+GitHub API를 이용한 외부 데이터 연동 작업을 완료했다.
