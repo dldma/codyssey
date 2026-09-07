@@ -63,7 +63,10 @@
         <section id="hero">
 
             <!-- 메인 인사말 -->
-            <h1>안녕하세요, 이은지입니다.</h1>
+            <h1>
+                <span id="typing-text"></span>
+                <span class="typing-cursor"></span>
+            </h1>
 
             <!-- 간단한 자기소개 -->
             <p>
@@ -161,6 +164,8 @@
             <!-- 섹션 제목 -->
             <h2>Projects</h2>
 
+            <div id="project-filters"></div>
+
             <!-- GitHub API에서 가져온 프로젝트가 표시될 영역 -->
             <div id="project-list">
             </div>
@@ -174,7 +179,10 @@
             <h2>Contact</h2>
 
             <!-- 문의 폼 -->
-            <form id="contact-form">
+            <form 
+                    id="contact-form"
+                    action="https://formspree.io/f/xeaqrjlp"
+                    method="POST">
 
                 <div>
                     <label for="name">이름</label>

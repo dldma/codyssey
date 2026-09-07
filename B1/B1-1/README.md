@@ -140,6 +140,116 @@ API 요청에 실패한 경우
 사용자가 다시 요청할 수 있도록 `다시 시도` Button을 제공합니다.
 
 
+### 9. Bonus Features
+
+기본 미션 구현 후 추가 기능을 구현했습니다.
+
+#### 시스템 Dark Mode 자동 감지
+
+사용자가 Theme을 직접 선택한 기록이 없는 경우
+운영체제의 `prefers-color-scheme` 설정을 확인하여
+초기 Light / Dark Theme을 자동으로 결정합니다.
+
+사용자가 직접 선택한 Theme은 `localStorage`에 저장되며
+시스템 설정보다 우선 적용됩니다.
+
+
+#### Hero Typing Effect
+
+첫 화면의 인사말에 Typing Effect를 적용하여
+문장이 한 글자씩 출력되도록 구현했습니다.
+
+CSS Animation을 이용하여 Typing Cursor도 함께 표시됩니다.
+
+
+#### GitHub Repository Language Filter
+
+GitHub API로 가져온 Repository를
+사용 언어에 따라 필터링할 수 있습니다.
+
+Repository 데이터를 분석하여 실제 사용되고 있는 Language의
+Filter Button을 자동으로 생성합니다.
+
+예:
+
+```text
+All
+Jupyter Notebook
+Python
+```
+
+`All`을 선택하면 전체 Repository가 표시되고,
+특정 Language를 선택하면 해당 Repository만 표시됩니다.
+
+![GitHub Repository Filter](images/project-filter.png)
+
+
+#### Contact Form 실제 전송
+
+기존 JavaScript Form Validation에
+Formspree를 추가로 연동했습니다.
+
+사용자가 Portfolio에서 작성한
+
+- 이름
+- 이메일
+- 메시지
+
+정보를 실제로 전송할 수 있습니다.
+
+JavaScript의 `FormData`, `fetch()`, `async/await`를 사용하여
+페이지 이동 없이 Formspree API로 데이터를 전송합니다.
+
+전송에 성공하면 다음 메시지가 표시됩니다.
+
+```text
+문의가 정상적으로 전송되었습니다.
+```
+
+전송에 실패하면 사용자에게 다시 시도할 수 있도록
+오류 메시지를 표시합니다.
+
+
+### Formspree Integration
+
+Portfolio Contact Form 전송을 위해 Formspree Form Endpoint를 생성했습니다.
+
+![Formspree 설정 화면](images/formspree-setting.png)
+
+HTML Form의 `action`에 Formspree Endpoint를 연결하고
+`POST` Method를 사용했습니다.
+
+```html
+<form
+    id="contact-form"
+    action="https://formspree.io/f/xeaqrjlp"
+    method="POST">
+```
+
+JavaScript에서는 `FormData`를 생성한 후
+`fetch()`를 사용하여 데이터를 전송합니다.
+
+```javascript
+const formData = new FormData(contactForm);
+
+const response = await fetch(
+    contactForm.action,
+    {
+        method: contactForm.method,
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }
+);
+```
+
+실제 전송 테스트 후 Portfolio 화면에서 성공 메시지를 확인하고,
+Formspree Dashboard에서도 제출된 문의가 정상적으로 기록되는 것을 확인했습니다.
+
+![Contact Form 전송 성공](images/contact-success.png)
+
+
 ## 프로젝트 구조
 
 ```text
@@ -199,13 +309,32 @@ https://dldma.github.io/codyssey/B1/B1-1/
 
 ![Desktop](images/desktop.png)
 
+
 ### Mobile
 
 ![Mobile](images/mobile.png)
 
+
 ### Dark Mode
 
 ![Dark Mode](images/dark-mode.png)
+
+
+### GitHub Repository Filter
+
+![GitHub Repository Filter](images/project-filter.png)
+
+
+### Contact Form & Formspree
+
+#### Formspree 설정
+
+![Formspree 설정 화면](images/formspree-setting.png)
+
+
+#### 문의 전송 성공
+
+![Contact Form 전송 성공](images/contact-success.png)
 
 
 ## 개발 과정에서 학습한 내용

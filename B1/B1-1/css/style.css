@@ -214,6 +214,29 @@ header.scrolled {
 }
 
 
+.typing-cursor {
+    display: inline-block;
+
+    margin-left: 4px;
+
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+
+
 /* =========================
    Tablet 이상
 ========================= */
@@ -338,6 +361,47 @@ header.scrolled {
     text-align: center;
     margin-bottom: 40px;
 }
+
+
+#project-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    max-width: 1000px;
+    margin: 0 auto 30px;
+}
+
+
+/* 프로젝트 필터 버튼 */
+.filter-button {
+    padding: 8px 16px;
+
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+
+    background-color: transparent;
+    color: var(--primary-color);
+
+    font-weight: bold;
+    cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.filter-button:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
 
 #project-list {
     max-width: 1100px;

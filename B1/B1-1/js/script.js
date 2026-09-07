@@ -36,9 +36,30 @@ const themeToggle = document.querySelector('#theme-toggle');
 // localStorage은 부라우저에서 작은 값을 저장 할 수 있는 공간
 const savedTheme = localStorage.getItem('theme');
 
-// 저장된 테마가 dark라면 다크 모드 적용
+const prefersDark =
+    window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+
+// 저장된 테마가 있는 경우
 if (savedTheme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
+
+    document.documentElement.setAttribute(
+        'data-theme',
+        'dark'
+    );
+
+    themeToggle.textContent = '☀️';
+
+
+// 저장된 테마가 없고,
+// 사용자의 시스템이 다크 모드인 경우
+} else if (savedTheme === null && prefersDark) {
+
+    document.documentElement.setAttribute(
+        'data-theme',
+        'dark'
+    );
+
     themeToggle.textContent = '☀️';
 }
 
@@ -214,7 +235,7 @@ const isValidEmail = (email) => {
 
 
 // 폼 제출 이벤트
-contactForm.addEventListener('submit', (event) => {
+contactForm.addEventListener('submit', async (event) => {
 
     // 기본 제출 동작 방지
     event.preventDefault();
@@ -257,9 +278,43 @@ contactForm.addEventListener('submit', (event) => {
 
     // 모든 값이 정상일 경우
     if (isValid) {
-        formSuccess.textContent = '문의가 정상적으로 작성되었습니다.';
+        const formData = new FormData(contactForm);
 
-        contactForm.reset();
+        try {
+
+            const response = await fetch(
+                contactForm.action,
+                {
+                    method: contactForm.method,
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }
+            );
+
+            if (!response.ok) {
+
+                const errorData = await response.json();
+
+                console.error('Formspree 상태 코드:', response.status);
+                console.error('Formspree 오류 내용:', errorData);
+                
+                throw new Error('문의 전송 실패');
+            }
+
+            formSuccess.textContent =
+                '문의가 정상적으로 전송되었습니다.';
+
+            contactForm.reset();
+
+        } catch (error) {
+
+            console.error(error);
+
+            formSuccess.textContent =
+                '문의 전송에 실패했습니다. 잠시 후 다시 시도해주세요.';
+        }
     }
 });
 
@@ -288,6 +343,31 @@ messageInput.addEventListener('input', () => {
 
 
 // =========================
+// Hero Typing Effect
+// =========================
+
+const typingText = document.querySelector('#typing-text');
+
+const introText = '안녕하세요, 이은지입니다.';
+
+let typingIndex = 0;
+
+const typeText = () => {
+
+    if (typingIndex < introText.length) {
+
+        typingText.textContent += introText[typingIndex];
+
+        typingIndex += 1;
+
+        setTimeout(typeText, 100);
+    }
+};
+
+typeText();
+
+
+// =========================
 // GitHub API
 // =========================
 
@@ -296,6 +376,12 @@ const githubUsername = 'dldma';
 
 // 프로젝트가 표시될 영역 선택
 const projectList = document.querySelector('#project-list');
+
+const projectFilters =
+    document.querySelector('#project-filters');
+
+let allRepos = [];
+
 
 // Loading 상태 표시
 const renderLoading = () => {
@@ -330,6 +416,117 @@ const renderError = () => {
     });
 };
 
+const renderProjects = (repos) => {
+
+    if (repos.length === 0) {
+
+        projectList.innerHTML = `
+            <p class="project-status">
+                표시할 프로젝트가 없습니다.
+            </p>
+        `;
+
+        return;
+    }
+
+    const projectCards = repos.map((repo) => {
+
+        const {
+            name,
+            description,
+            html_url,
+            language,
+            stargazers_count
+        } = repo;
+
+        return `
+            <article class="project-card">
+
+                <h3>${name}</h3>
+
+                <p>
+                    ${description || '프로젝트 설명이 없습니다.'}
+                </p>
+
+                <p>
+                    Language:
+                    ${language || '정보 없음'}
+                </p>
+
+                <p>
+                    Stars:
+                    ${stargazers_count}
+                </p>
+
+                <a
+                    href="${html_url}"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    GitHub 보기
+                </a>
+
+            </article>
+        `;
+    });
+
+    projectList.innerHTML = projectCards.join('');
+};
+
+// Repository Language Filter 생성
+const renderFilters = (repos) => {
+
+    const languages = repos
+        .map((repo) => repo.language)
+        .filter((language) => language);
+
+    const uniqueLanguages =
+        [...new Set(languages)];
+
+    const filterButtons = [
+        'All',
+        ...uniqueLanguages
+    ];
+
+    projectFilters.innerHTML =
+        filterButtons.map((language) => {
+
+            return `
+                <button
+                    type="button"
+                    class="filter-button"
+                    data-language="${language}">
+                    ${language}
+                </button>
+            `;
+        }).join('');
+};
+
+
+projectFilters.addEventListener('click', (event) => {
+
+    if (!event.target.classList.contains('filter-button')) {
+        return;
+    }
+
+    const selectedLanguage =
+        event.target.dataset.language;
+
+    if (selectedLanguage === 'All') {
+
+        renderProjects(allRepos);
+
+        return;
+    }
+
+    const filteredRepos =
+        allRepos.filter((repo) => {
+            return repo.language === selectedLanguage;
+        });
+
+    renderProjects(filteredRepos);
+});
+
+
 // GitHub Repository 데이터 가져오기
 const fetchProjects = async () => {
 
@@ -351,60 +548,13 @@ const fetchProjects = async () => {
         // JSON 데이터로 변환
         const repos = await response.json();
 
-        // Repository가 하나도 없는 경우
-        if (repos.length === 0) {
-            projectList.innerHTML = `
-                <p class="project-status">
-                    표시할 프로젝트가 없습니다.
-                </p>
-            `;
+        allRepos = repos;
 
-            return;
-        }
+        renderFilters(allRepos);
 
-        // Repository 데이터를 Project Card HTML로 변환
-        const projectCards = repos.map((repo) => {
+        renderProjects(allRepos);
 
-            const {
-                name,
-                description,
-                html_url,
-                language,
-                stargazers_count
-            } = repo;
-
-            return `
-                <article class="project-card">
-
-                    <h3>${name}</h3>
-
-                    <p>
-                        ${description || '프로젝트 설명이 없습니다.'}
-                    </p>
-
-                    <p>
-                        Language:
-                        ${language || '정보 없음'}
-                    </p>
-
-                    <p>
-                        Stars:
-                        ${stargazers_count}
-                    </p>
-
-                    <a
-                        href="${html_url}"
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        GitHub 보기
-                    </a>
-
-                </article>
-            `;
-        });
-
-        // Project Card 화면 출력
-        projectList.innerHTML = projectCards.join('');
+    
 
     } catch (error) {
 

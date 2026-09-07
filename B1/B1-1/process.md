@@ -2755,3 +2755,316 @@ GitHub API 연동 후 다음 기능을 최종 확인했다.
 - Private Repository가 Portfolio에 표시되지 않는 것 확인
 
 GitHub API를 이용한 외부 데이터 연동 작업을 완료했다.
+
+
+
+# 보너스 기능 구현 과정
+
+# 80. 시스템 Dark Mode 자동 감지
+
+기존 Dark Mode 기능은 사용자가 직접 Theme Button을 눌러
+Light Mode와 Dark Mode를 변경하는 방식으로 구현되어 있었다.
+
+보너스 기능에서는 사용자가 Theme을 직접 선택한 기록이 없는 경우
+운영체제의 Theme 설정을 확인하여 초기 화면에 적용하도록 기능을 추가했다.
+
+JavaScript의 `matchMedia()`를 사용하여
+사용자의 시스템이 Dark Mode를 사용하고 있는지 확인했다.
+
+```javascript
+const prefersDark =
+    window.matchMedia('(prefers-color-scheme: dark)').matches;
+```
+
+기존에 `localStorage`에 저장된 Theme이 있다면
+사용자가 직접 선택한 값을 우선 적용한다.
+
+저장된 Theme이 없는 경우에만
+시스템의 Dark Mode 설정을 확인하여 Theme을 결정하도록 구성했다.
+
+이를 통해 사용자의 시스템 환경에 맞는 초기 Theme을 자동으로 제공할 수 있도록 했다.
+
+
+# 81. Hero Typing Effect 구현
+
+Portfolio 첫 화면의 인사말이 한 번에 표시되는 대신
+글자가 한 글자씩 입력되는 Typing Effect를 추가했다.
+
+HTML에서는 Typing Effect가 적용될 영역을 별도의 `span` 요소로 구성했다.
+
+```html
+<h1>
+    <span id="typing-text"></span>
+    <span class="typing-cursor"></span>
+</h1>
+```
+
+JavaScript에서는 출력할 문자열과 현재 출력 위치를 변수로 관리했다.
+
+```javascript
+const introText = '안녕하세요, 이은지입니다.';
+
+let typingIndex = 0;
+```
+
+문자열의 각 글자를 순서대로 추가하고,
+`setTimeout()`을 사용하여 일정 시간 뒤 다음 글자를 출력하도록 구현했다.
+
+```javascript
+const typeText = () => {
+
+    if (typingIndex < introText.length) {
+
+        typingText.textContent += introText[typingIndex];
+
+        typingIndex += 1;
+
+        setTimeout(typeText, 100);
+    }
+};
+
+typeText();
+```
+
+CSS에서는 `@keyframes`를 사용하여
+Typing Cursor가 반복적으로 깜빡이는 Animation을 추가했다.
+
+
+# 82. GitHub Repository Language Filter 구현
+
+GitHub API로 가져온 Repository가 많아질 경우
+사용 언어를 기준으로 원하는 Project만 확인할 수 있도록 Filter 기능을 추가했다.
+
+HTML의 Projects 영역에는 Filter Button이 표시될 공간을 추가했다.
+
+```html
+<div id="project-filters"></div>
+```
+
+GitHub API에서 받아온 Repository의 `language` 데이터를
+`map()`을 이용하여 추출했다.
+
+```javascript
+const languages = repos
+    .map((repo) => repo.language)
+    .filter((language) => language);
+```
+
+`filter()`를 이용하여 Language 값이 없는 Repository를 제거했다.
+
+여러 Repository가 같은 Language를 사용할 수 있으므로
+`Set`을 이용하여 중복 Language도 제거했다.
+
+```javascript
+const uniqueLanguages =
+    [...new Set(languages)];
+```
+
+전체 Repository를 확인할 수 있도록 `All` Button을 추가하고
+Language별 Button을 자동으로 생성했다.
+
+```javascript
+const filterButtons = [
+    'All',
+    ...uniqueLanguages
+];
+```
+
+각 Button에는 `data-language` 속성을 지정했다.
+
+```html
+<button
+    type="button"
+    class="filter-button"
+    data-language="Python">
+    Python
+</button>
+```
+
+사용자가 Filter Button을 클릭하면
+`dataset.language`를 이용하여 선택한 Language를 확인한다.
+
+```javascript
+const selectedLanguage =
+    event.target.dataset.language;
+```
+
+선택한 Language와 같은 Repository만
+`filter()`를 사용하여 추출한 후 다시 화면에 출력했다.
+
+```javascript
+const filteredRepos =
+    allRepos.filter((repo) => {
+        return repo.language === selectedLanguage;
+    });
+
+renderProjects(filteredRepos);
+```
+
+`All` Button을 클릭하면 전체 Repository가 다시 표시되도록 구현했다.
+
+
+# 83. Contact Form 실제 전송 기능 구현
+
+기존 Contact Form은 이름, 이메일, 메시지를 검증한 후
+성공 메시지만 표시하는 구조였다.
+
+따라서 화면에서는 문의가 작성된 것처럼 보이지만
+실제로 외부로 데이터가 전송되지는 않았다.
+
+보너스 기능에서는 Formspree 서비스를 연동하여
+Portfolio에서 작성한 문의 내용을 실제로 전송하도록 기능을 확장했다.
+
+
+## 83-1. Formspree Project 및 Form 생성
+
+Formspree에서 Portfolio Contact Form용 Project를 생성했다.
+
+Project 안에 새로운 Form을 생성한 뒤
+다음과 같은 Form Endpoint를 발급받았다.
+
+```text
+https://formspree.io/f/xeaqrjlp
+```
+
+HTML의 Contact Form에 Endpoint와 POST Method를 설정했다.
+
+```html
+<form
+    id="contact-form"
+    action="https://formspree.io/f/xeaqrjlp"
+    method="POST">
+```
+
+각 입력 요소에는 Formspree에서 데이터를 구분할 수 있도록
+기존 `name` 속성을 그대로 사용했다.
+
+```html
+<input type="text" id="name" name="name">
+
+<input type="email" id="email" name="email">
+
+<textarea id="message" name="message"></textarea>
+```
+
+
+## 83-2. FormData 생성
+
+사용자가 입력한 Form 데이터를 JavaScript에서 전송하기 위해
+`FormData` 객체를 사용했다.
+
+```javascript
+const formData = new FormData(contactForm);
+```
+
+이를 통해 다음 데이터를 자동으로 FormData에 포함시켰다.
+
+- 이름
+- 이메일
+- 메시지
+
+
+## 83-3. fetch를 이용한 실제 전송
+
+기존 Submit Event를 `async` 함수로 변경했다.
+
+```javascript
+contactForm.addEventListener('submit', async (event) => {
+```
+
+기존과 동일하게 `preventDefault()`를 사용하여
+브라우저의 기본 Form 제출 동작을 막고
+JavaScript가 직접 Formspree로 데이터를 전송하도록 했다.
+
+```javascript
+const response = await fetch(
+    contactForm.action,
+    {
+        method: contactForm.method,
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }
+);
+```
+
+Form의 `action`과 `method` 속성을 JavaScript에서 가져오기 때문에
+HTML에서 설정한 Formspree Endpoint와 POST Method가 그대로 사용된다.
+
+
+## 83-4. 전송 성공 및 실패 처리
+
+Formspree 서버가 정상적으로 요청을 처리했는지
+`response.ok`를 이용하여 확인했다.
+
+```javascript
+if (!response.ok) {
+    throw new Error('문의 전송 실패');
+}
+```
+
+전송에 성공하면 사용자에게 성공 메시지를 표시하고
+Form의 입력값을 초기화했다.
+
+```javascript
+formSuccess.textContent =
+    '문의가 정상적으로 전송되었습니다.';
+
+contactForm.reset();
+```
+
+전송에 실패하면 `catch`에서 오류를 처리하고
+사용자에게 다시 시도할 수 있도록 안내 메시지를 표시했다.
+
+```javascript
+catch (error) {
+
+    console.error(error);
+
+    formSuccess.textContent =
+        '문의 전송에 실패했습니다. 잠시 후 다시 시도해주세요.';
+}
+```
+
+
+## 83-5. Form 전송 오류 확인 및 수정
+
+초기 연동 테스트 과정에서는
+문의 전송 실패 메시지가 표시되는 문제가 발생했다.
+
+Contact Form의 Formspree Endpoint와
+HTML Form 속성을 다시 확인하여 수정한 후 테스트를 진행했다.
+
+수정 후 Live Server에서 이름, 이메일, 메시지를 입력하여
+실제 문의 전송을 테스트했다.
+
+최종적으로 Portfolio 화면에서 전송 성공 메시지가 정상적으로 표시되었으며,
+Formspree Dashboard에서도 제출된 문의 데이터를 확인했다.
+
+이를 통해 Contact Form의 실제 데이터 전송이 정상적으로 작동하는 것을 확인했다.
+
+
+# 84. 보너스 기능 최종 확인
+
+기본 미션 완료 후 다음 보너스 기능을 추가로 구현했다.
+
+- 시스템 Dark Mode 자동 감지
+- 사용자 Theme 설정 우선 적용
+- Hero Typing Effect
+- Typing Cursor Animation
+- GitHub Repository Language Filter
+- Language Filter Button 자동 생성
+- `map()` 활용
+- `filter()` 활용
+- `Set`을 이용한 중복 제거
+- `dataset` 활용
+- Contact Form 실제 전송
+- Formspree 연동
+- `FormData` 활용
+- `fetch()`와 `async/await`를 이용한 Form 전송
+- 전송 성공 및 실패 상태 처리
+
+최종 테스트를 통해 모든 보너스 기능이 정상적으로 작동하는 것을 확인했다.
+
+기본 미션과 보너스 미션 구현을 모두 완료했다.
