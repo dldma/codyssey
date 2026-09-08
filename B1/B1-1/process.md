@@ -3068,3 +3068,338 @@ Formspree Dashboard에서도 제출된 문의 데이터를 확인했다.
 최종 테스트를 통해 모든 보너스 기능이 정상적으로 작동하는 것을 확인했다.
 
 기본 미션과 보너스 미션 구현을 모두 완료했다.
+
+
+# 디자인 리뉴얼 과정
+
+# 85. Portfolio Design Redesign 시작
+
+기본 기능과 보너스 기능 구현을 모두 완료한 후
+Portfolio의 전체 디자인을 전공과 진로 방향에 맞게 리뉴얼했다.
+
+기존 디자인은 일반적인 웹 Portfolio 형태였지만,
+정보전기전자공학 전공과 Embedded Developer라는 진로가
+더 잘 드러나도록 다음 요소를 디자인에 반영했다.
+
+- Software
+- Embedded System
+- Circuit
+- Hardware
+- Microcontroller
+- Electronics
+
+단순히 Coding 화면처럼 보이는 디자인보다는
+Software와 Hardware가 함께 표현되는 방향으로 구성했다.
+
+
+# 86. 전체 Color Concept 변경
+
+Portfolio의 Theme을
+Light Mode와 Dark Mode에서 서로 다른 분위기로 구성했다.
+
+## Light Mode
+
+Light Mode는 Ivory + Copper 조합을 사용했다.
+
+```text
+Background
+→ Ivory
+
+Point Color
+→ Copper
+```
+
+Copper 색상은 PCB 배선과 전자회로의 금속 배선을 연상시키는 색상으로,
+전자공학 Portfolio의 분위기를 표현하기 위해 사용했다.
+
+Card와 Border에는 강한 Copper 색상을 직접 사용하기보다
+투명도를 낮춘 색상을 사용하여 전체 디자인이 과하게 보이지 않도록 조정했다.
+
+
+## Dark Mode
+
+Dark Mode는 Deep Navy + Cyan 조합을 사용했다.
+
+```text
+Background
+→ Deep Navy
+
+Point Color
+→ Cyan
+```
+
+어두운 Navy Background 위에 Cyan 계열의 Text,
+Border, Circuit Line을 사용하여
+Embedded System Dashboard와 Terminal을 연상시키도록 구성했다.
+
+Light Mode와 Dark Mode는 Layout은 동일하게 유지하고
+Color Variable만 변경하도록 구성했다.
+
+
+# 87. Pixel / Terminal Font 적용
+
+Portfolio의 전체 Font를
+기존의 일반적인 Sans-serif Font에서
+Pixel / Terminal 느낌의 Font로 변경했다.
+
+한글과 영문을 함께 사용할 수 있도록
+`Galmuri11` Web Font를 사용했다.
+
+HTML의 `head` 영역에 다음 코드를 추가했다.
+
+```html
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+```
+
+CSS에서는 Font Variable을 다음과 같이 변경했다.
+
+```css
+--font-family: Galmuri11, monospace;
+```
+
+이를 통해 Software 개발 환경의 Terminal 느낌과
+Embedded System의 Technical한 분위기를 함께 표현했다.
+
+
+# 88. Hero Section 디자인 변경
+
+Portfolio 첫 화면인 Hero Section을
+기존 Text 중심 Layout에서
+Text와 Hardware Visual이 함께 표시되는 구조로 변경했다.
+
+왼쪽 영역에는 다음 내용을 배치했다.
+
+```text
+Embedded Systems & Electronics
+안녕하세요, 이은지입니다.
+전자와 소프트웨어가 만나는 지점을 탐구하며
+임베디드 개발자를 목표로 공부하고 있습니다.
+```
+
+오른쪽 영역에는
+Embedded System을 대표하는 Visual Element로
+ATmega128A Microcontroller 이미지를 배치했다.
+
+또한 주변에 Circuit Line 형태의 Graphic을 추가하여
+전자회로와 Hardware 느낌을 강조했다.
+
+
+# 89. Hero Technical Keyword 추가
+
+ATmega128A 이미지 주변에
+Software와 Hardware의 결합을 표현하는 Keyword를 배치했다.
+
+```text
+HARDWARE
++
+SOFTWARE
+=
+A BETTER TOMORROW
+```
+
+또한 다음 Keyword를 함께 표시했다.
+
+```text
+MICROCONTROLLER
+EMBEDDED SYSTEMS
+CIRCUIT DESIGN
+REAL WORLD
+```
+
+이를 통해 첫 화면만 보더라도
+Portfolio의 분야를 바로 알 수 있도록 구성했다.
+
+
+# 90. About Section 재구성
+
+기존 About Section은
+프로필 사진과 자기소개 Text 중심으로 구성되어 있었다.
+
+리뉴얼 과정에서는
+자기소개 Text와 함께 다음 정보를 Card 형태로 추가했다.
+
+```text
+전공
+→ 정보전기전자공학
+
+관심 분야
+→ 임베디드 시스템
+→ 전자회로
+→ 센서 연동
+
+목표
+→ 임베디드 개발자
+```
+
+이를 통해 자기소개 내용을
+보다 빠르게 확인할 수 있도록 구성했다.
+
+
+# 91. Skills Section 재구성
+
+기존 Skills Section의 단순 List 구조를
+4개의 Category Card 구조로 변경했다.
+
+```text
+Software
+
+Embedded
+
+Circuit / Hardware
+
+Design / Tools
+```
+
+각 Category에는 관련 Skill을 Tag 형태로 표시했다.
+
+예를 들어 Embedded Card에는 다음 내용을 배치했다.
+
+```text
+ATmega128A
+MCU I/O
+ADC
+UART
+Interrupt
+```
+
+Circuit / Hardware Card에는 다음 내용을 포함했다.
+
+```text
+Circuit Design
+PCB / Schematic
+Soldering
+Sensor Integration
+```
+
+이를 통해 Software Skill과 Hardware Skill을
+명확하게 구분하면서도 한 화면에서 함께 확인할 수 있도록 구성했다.
+
+
+# 92. Project Card 디자인 변경
+
+GitHub API를 통해 자동으로 생성되는 Project Card의 디자인도 변경했다.
+
+기존 Card는 Repository 이름과 설명을
+일반적인 Text 형태로 표시했다.
+
+리뉴얼 후에는 Card 상단에
+Terminal Preview 형태의 영역을 추가했다.
+
+```text
+$ repo: class_python
+
+> language: Jupyter Notebook
+> stars: 0
+> status: [PUBLIC]
+```
+
+이를 통해 GitHub Repository 데이터를 유지하면서
+Software Portfolio의 Terminal 느낌을 추가했다.
+
+
+# 93. Project Preview Theme 분리
+
+Project Card의 Terminal Preview 영역은
+Light Mode와 Dark Mode에서 서로 다른 Color를 사용하도록 구성했다.
+
+Light Mode에서는
+전체 Ivory + Copper Theme과 어울리도록
+밝은 Background와 Copper 계열 Text를 사용했다.
+
+Dark Mode에서는
+기존 Deep Navy Background와 Cyan Text를 유지하여
+Terminal 화면과 같은 분위기를 표현했다.
+
+이를 위해 기본 Style과
+`[data-theme="dark"]` 전용 Style을 분리했다.
+
+
+# 94. Contact Section 재구성
+
+Contact Section도
+기존 Form 단독 구조에서
+정보와 Form을 함께 보여주는 Layout으로 변경했다.
+
+다음 영역으로 구성했다.
+
+```text
+Contact 안내 Text
+
+Contact Form
+
+Let's Build Something Together Card
+```
+
+기존 Form Validation과
+Formspree 전송 기능은 그대로 유지했다.
+
+즉 디자인만 변경하고
+기존 JavaScript 기능은 그대로 사용할 수 있도록 구성했다.
+
+
+# 95. 기존 JavaScript 기능 유지
+
+전체 HTML과 CSS 구조는 크게 변경했지만
+기존 JavaScript 기능은 최대한 유지했다.
+
+다음 기능은 리뉴얼 후에도 정상적으로 동작하도록 확인했다.
+
+- Hamburger Menu
+- Smooth Scroll
+- Scroll To Top
+- Header Scroll Effect
+- Dark Mode
+- localStorage Theme 저장
+- System Dark Mode 감지
+- IntersectionObserver Animation
+- Hero Typing Effect
+- GitHub API
+- Repository Filter
+- Contact Form Validation
+- Formspree 실제 전송
+
+디자인 변경으로 인해
+기존 기능이 사라지지 않도록
+기존 ID와 Event 연결 구조를 유지했다.
+
+
+# 96. Responsive Layout 조정
+
+새로운 디자인에서도
+Mobile First 방식의 Responsive Layout을 유지했다.
+
+Mobile에서는 각 Section과 Card가
+1열 형태로 표시되도록 구성했다.
+
+Tablet 이상에서는
+About, Skills, Projects 등의 Grid Column 수를 늘렸다.
+
+Desktop에서는
+Skills Card를 4열로 표시하고
+Hero Section을 Text와 ATmega128A Image의
+2열 Layout으로 구성했다.
+
+
+# 97. 디자인 리뉴얼 최종 확인
+
+Portfolio 디자인 리뉴얼 후
+다음 내용을 최종 확인했다.
+
+- Light Mode Ivory + Copper Theme
+- Dark Mode Deep Navy + Cyan Theme
+- Pixel / Terminal Font 적용
+- ATmega128A Hero Visual
+- Circuit Line Graphic
+- About Card Layout
+- Skills Category Card
+- Project Terminal Preview
+- Light / Dark Project Preview 분리
+- Contact Layout 변경
+- Responsive Layout 유지
+- 기존 JavaScript 기능 정상 동작
+
+기본 기능과 보너스 기능을 유지하면서
+Software와 Hardware가 함께 표현되는
+Embedded Systems Portfolio 디자인으로 리뉴얼했다.

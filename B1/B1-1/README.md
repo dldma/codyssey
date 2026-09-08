@@ -209,6 +209,135 @@ JavaScript의 `FormData`, `fetch()`, `async/await`를 사용하여
 전송에 실패하면 사용자에게 다시 시도할 수 있도록
 오류 메시지를 표시합니다.
 
+### 10. Portfolio Design Redesign
+
+기본 기능 구현을 완료한 후 포트폴리오의 전체 디자인을
+전공과 진로 방향에 맞게 리뉴얼했습니다.
+
+기존의 일반적인 웹 포트폴리오 스타일에서
+Software와 Hardware가 함께 드러나는
+Embedded Systems & Electronics 컨셉으로 변경했습니다.
+
+
+#### Light Mode - Ivory & Copper
+
+Light Mode는 전자회로와 PCB의 Copper 배선을 연상시키는
+Ivory + Copper 색상 조합을 사용했습니다.
+
+- Background: Ivory 계열
+- Point Color: Copper 계열
+- Card와 Border에도 Copper 색상을 약하게 적용
+- 회로 배선 형태의 Line Graphic 사용
+
+밝고 따뜻한 분위기를 유지하면서도
+전자공학 포트폴리오라는 느낌을 표현하도록 구성했습니다.
+
+
+#### Dark Mode - Deep Navy & Cyan
+
+Dark Mode에서는 기존 Light Mode의 구조를 그대로 유지하면서
+Deep Navy + Cyan 색상 조합을 적용했습니다.
+
+어두운 Background 위에 Cyan 계열의 Border,
+Text, Circuit Line을 사용하여
+전자회로와 Embedded System Dashboard와 같은 분위기를 표현했습니다.
+
+Light Mode와 Dark Mode는 동일한 Layout을 사용하며,
+Theme에 따라 Color만 자연스럽게 변경됩니다.
+
+
+#### Pixel / Terminal Typography
+
+Portfolio 전체 Font는 일반적인 Sans-serif 대신
+Pixel / Terminal 스타일의 `Galmuri11`을 적용했습니다.
+
+```html
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+```
+
+CSS에서는 다음과 같이 사용했습니다.
+
+```css
+--font-family: Galmuri11, monospace;
+```
+
+이를 통해 Software 개발 환경의 Terminal 느낌과
+Embedded System의 Technical한 분위기를 함께 표현했습니다.
+
+
+#### ATmega128A Hero Design
+
+Portfolio 첫 화면에는
+전공 및 Embedded 분야를 대표할 수 있도록
+ATmega128A Microcontroller 이미지를 배치했습니다.
+
+Hero 영역에는 다음과 같은 Keyword를 함께 표시했습니다.
+
+```text
+HARDWARE
++
+SOFTWARE
+=
+A BETTER TOMORROW
+
+MICROCONTROLLER
+EMBEDDED SYSTEMS
+CIRCUIT DESIGN
+REAL WORLD
+```
+
+또한 주변에 Circuit Line Graphic을 배치하여
+단순한 제품 이미지가 아니라
+전자회로를 표현하는 Visual Element로 활용했습니다.
+
+
+#### Skills Layout Redesign
+
+기존의 단순 Skill List를 다음 네 가지 Category Card로 재구성했습니다.
+
+```text
+Software
+Embedded
+Circuit / Hardware
+Design / Tools
+```
+
+각 기술은 Tag 형태로 표시하여
+Software와 Hardware 관련 역량을 한눈에 확인할 수 있도록 구성했습니다.
+
+
+#### Project Card Redesign
+
+GitHub API를 통해 가져오는 Repository Card에도
+Terminal UI를 연상시키는 Preview 영역을 추가했습니다.
+
+```text
+$ repo: class_python
+
+> language: Jupyter Notebook
+> stars: 0
+> status: [PUBLIC]
+```
+
+Light Mode에서는 Portfolio의 Ivory + Copper 색상과 자연스럽게 연결되도록
+Preview Background를 밝게 구성했습니다.
+
+Dark Mode에서는 Deep Navy Background와 Cyan Text를 사용하여
+Terminal 화면과 같은 느낌을 유지했습니다.
+
+
+#### Responsive Design
+
+새로운 디자인에서도 기존 Responsive 기능은 그대로 유지했습니다.
+
+Desktop에서는 여러 Card가 가로로 배치되며,
+Tablet과 Mobile에서는 화면 크기에 따라
+Grid가 자동으로 변경됩니다.
+
+기존 Hamburger Menu와 Navigation 기능 역시 유지했습니다.
+
 
 ### Formspree Integration
 
