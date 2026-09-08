@@ -1,30 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<!-- 브라우저 설정 -->
 <head>
-    <!-- 한글 문자 인코딩, 모바일 화면 크기에 맞춰 반응형으로 표시 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>B1-1 Portfolio</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <!-- 픽셀/레트로 느낌의 한글 웹폰트 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
 
-    <script src="js/script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
-<!-- 웹 페이지 본문 -->
 <body>
-
-    <!-- 페이지 상단 영역 -->
     <header>
         <nav class="navbar">
+            <a href="#hero" class="logo">Eunji</a>
 
-            <!-- 사이트 로고 -->
-            <a href="#hero" class="logo">My Portfolio</a>
-
-            <!-- 네비게이션 메뉴 -->
             <ul class="nav-menu">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -32,210 +25,275 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
 
-            <!-- 네비게이션 버튼 -->
             <div class="nav-buttons">
-
-                <!-- 다크 모드 버튼 -->
-                <button
-                    type="button"
-                    id="theme-toggle"
-                    aria-label="다크 모드 전환">
-                    🌙
-                </button>
-
-                <!-- 모바일 햄버거 메뉴 버튼 -->
-                <button
-                    type="button"
-                    id="menu-toggle"
-                    aria-label="메뉴 열기">
-                    ☰
-                </button>
-
+                <button type="button" id="theme-toggle" aria-label="다크 모드 전환">🌙</button>
+                <button type="button" id="menu-toggle" aria-label="메뉴 열기">☰</button>
             </div>
-
         </nav>
     </header>
 
-    <!-- 페이지의 주요 내용 -->
     <main>
-
-        <!-- 첫 화면 -->
+        <!-- Hero -->
         <section id="hero">
+            <div class="hero-copy">
+                <p class="terminal-line">&gt; eunji@portfolio:~$ status: [ONLINE]</p>
 
-            <!-- 메인 인사말 -->
-            <h1>
-                <span id="typing-text"></span>
-                <span class="typing-cursor"></span>
-            </h1>
+                <p class="section-kicker">EMBEDDED SYSTEMS &amp; ELECTRONICS</p>
 
-            <!-- 간단한 자기소개 -->
-            <p>
-                정보전기전자공학을 전공하고 있으며,
-                임베디드 개발자를 목표로 공부하고 있습니다.
-            </p>
+                <h1>
+                    <span id="typing-text"></span>
+                    <span class="typing-cursor">|</span>
+                </h1>
 
-            <!-- 주요 이동 버튼 -->
-            <!-- 주요 이동 버튼 -->
-            <div class="hero-buttons">
-                <a href="#projects" class="primary-button">프로젝트 보기</a>
-                <a href="#contact" class="secondary-button">문의하기</a>
-            </div>
-            
-        </section>
-
-        <!-- 자기소개 -->
-        <section id="about" class="reveal">
-            <!-- 섹션 제목 -->
-            <h2>About Me</h2>
-
-            
-            <div class="about-content">
-                <!-- 프로필 이미지, "alt" 이미지 로드 실패 시 표시-->
-                <img src="images/profile.jpg" alt="이은지 프로필 사진">
-
-                <p>
-                    안녕하세요. 정보전기전자공학을 전공하고 있는 이은지입니다.
-                    임베디드 시스템과 전자회로에 관심이 있으며,
-                    다양한 프로젝트를 통해 개발 경험을 쌓고 있습니다.
+                <p class="hero-description">
+                    전자와 소프트웨어가 만나는 지점을 탐구하며,
+                    임베디드 개발자를 목표로 공부하고 있습니다.
                 </p>
 
+                <div class="hero-buttons">
+                    <a href="#projects" class="primary-button">프로젝트 보기 →</a>
+                    <a href="#contact" class="secondary-button">문의하기</a>
+                </div>
+
+                <p class="hero-caption">&gt; Ideate. Build. Debug. Repeat.</p>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-circuit hero-circuit-a"></div>
+                <div class="hero-circuit hero-circuit-b"></div>
+
+                <!-- images/atmega128a.png 파일을 넣으면 실제 이미지가 표시됩니다. -->
+                <div class="chip-fallback" aria-hidden="true">
+                    <span>ATMEL</span>
+                    <strong>ATMEGA128A</strong>
+                    <small>16AU</small>
+                </div>
+
+                <img
+                    src="images/atmega128a.png"
+                    alt="ATmega128A 마이크로컨트롤러"
+                    class="hero-chip-image">
+
+                <div class="hero-tech-copy">
+                    <span>HARDWARE</span>
+                    <span>+</span>
+                    <span>SOFTWARE</span>
+                    <span>=</span>
+                    <span>A BETTER TOMORROW</span>
+                </div>
+
+                <p class="hero-chip-tags">
+                    MICROCONTROLLER<br>
+                    EMBEDDED SYSTEMS<br>
+                    CIRCUIT DESIGN<br>
+                    REAL WORLD
+                </p>
             </div>
         </section>
 
-        <!-- 기술 스택 -->
-        <section id="skills" class="reveal">
-            <h2>Skills</h2>
+        <!-- About -->
+        <section id="about" class="reveal panel-section">
+            <div class="section-heading">
+                <span class="section-number">01</span>
+                <h2>About Me</h2>
+            </div>
 
-            <!-- Software Skills -->
-            <h3>Software</h3>
-            <ul>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-                <li>C</li>
-                <li>Python</li>
-                <li>Git</li>
-            </ul>
+            <div class="about-layout">
+                <div class="about-copy">
+                    <p>
+                        안녕하세요. 정보전기전자공학을 전공하고 있는 이은지입니다.
+                        임베디드 시스템과 전자회로에 관심이 있으며,
+                        다양한 프로젝트를 통해 개발 경험을 쌓고 있습니다.
+                    </p>
 
-            <!-- Hardware & Electronics Skills -->
-            <h3>Hardware & Electronics</h3>
+                    <div class="about-cards">
+                        <article class="info-card">
+                            <span class="info-icon">⌂</span>
+                            <h3>전공</h3>
+                            <p>정보전기전자공학</p>
+                        </article>
 
-            <ul>
-                <li>
-                    <strong>Embedded Systems</strong>
-                    - 마이크로컨트롤러와 센서를 활용한 임베디드 시스템 구현
-                </li>
+                        <article class="info-card">
+                            <span class="info-icon">▣</span>
+                            <h3>관심 분야</h3>
+                            <p>임베디드 시스템<br>전자회로 · 센서 연동</p>
+                        </article>
 
-                <li>
-                    <strong>Microcontroller</strong>
-                    - ATmega128A 등 MCU를 활용한 입출력 제어 및 주변장치 연동
-                </li>
+                        <article class="info-card">
+                            <span class="info-icon">⚑</span>
+                            <h3>목표</h3>
+                            <p>임베디드 개발자</p>
+                        </article>
+                    </div>
+                </div>
 
-                <li>
-                    <strong>Circuit Design</strong>
-                    - 전자회로를 구성하고 회로 동작을 분석하여 필요한 기능 구현
-                </li>
-
-                <li>
-                    <strong>Sensor Integration</strong>
-                    - 로드셀, 적외선 센서, 수위 센서 등 다양한 센서 데이터 수집 및 연동
-                </li>
-
-                <li>
-                    <strong>Soldering</strong>
-                    - 전자부품 및 회로를 직접 납땜하여 시제품 제작 및 회로 구성
-                </li>
-
-                <li>
-                    <strong>PCB / Schematic Design</strong>
-                    - EasyEDA 등을 활용한 회로도 작성 및 PCB 설계
-                </li>
-
-                <li>
-                    <strong>3D CAD</strong>
-                    - Rhino 등을 활용한 제품 외형 및 하드웨어 구조 설계
-                </li>
-            </ul>
+                <figure class="about-photo">
+                    <img src="images/profile.jpg" alt="이은지 프로필 사진">
+                    <figcaption>SMALL CIRCUITS<br>BIG CHANGES</figcaption>
+                </figure>
+            </div>
         </section>
 
-        <!-- 프로젝트 -->
-        <section id="projects" class="reveal" >
+        <!-- Skills -->
+        <section id="skills" class="reveal panel-section">
+            <div class="section-heading section-heading-split">
+                <div>
+                    <span class="section-number">02</span>
+                    <h2>Skills</h2>
+                </div>
+                <span class="section-command">$ pip list --installed</span>
+            </div>
 
-            <!-- 섹션 제목 -->
-            <h2>Projects</h2>
+            <div class="skills-grid">
+                <article class="skill-card">
+                    <span class="skill-icon">&lt;/&gt;</span>
+                    <h3>Software</h3>
+                    <p>문제를 해결하는 소프트웨어 개발</p>
+                    <ul class="skill-tags">
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                        <li>C</li>
+                        <li>Python</li>
+                        <li>Git</li>
+                    </ul>
+                </article>
+
+                <article class="skill-card">
+                    <span class="skill-icon">▦</span>
+                    <h3>Embedded</h3>
+                    <p>작은 시스템에 큰 가능성을</p>
+                    <ul class="skill-tags">
+                        <li>ATmega128A</li>
+                        <li>MCU I/O</li>
+                        <li>ADC</li>
+                        <li>UART</li>
+                        <li>Interrupt</li>
+                    </ul>
+                </article>
+
+                <article class="skill-card">
+                    <span class="skill-icon">∿</span>
+                    <h3>Circuit / Hardware</h3>
+                    <p>아이디어를 회로로, 세상을 더 가깝게</p>
+                    <ul class="skill-tags">
+                        <li>Circuit Design</li>
+                        <li>PCB / Schematic</li>
+                        <li>Soldering</li>
+                        <li>Sensor Integration</li>
+                    </ul>
+                </article>
+
+                <article class="skill-card">
+                    <span class="skill-icon">◇</span>
+                    <h3>Design / Tools</h3>
+                    <p>더 나은 개발을 위한 도구들</p>
+                    <ul class="skill-tags">
+                        <li>EasyEDA</li>
+                        <li>Rhino</li>
+                        <li>VS Code</li>
+                        <li>GitHub</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects" class="reveal panel-section">
+            <div class="section-heading">
+                <span class="section-number">03</span>
+                <h2>Projects</h2>
+            </div>
 
             <div id="project-filters"></div>
-
-            <!-- GitHub API에서 가져온 프로젝트가 표시될 영역 -->
-            <div id="project-list">
-            </div>
-
+            <div id="project-list"></div>
         </section>
 
-        <!-- 문의 -->
-        <section id="contact">
+        <!-- Contact -->
+        <section id="contact" class="reveal panel-section">
+            <div class="section-heading">
+                <span class="section-number">04</span>
+                <h2>Contact</h2>
+            </div>
 
-            <!-- 섹션 제목 -->
-            <h2>Contact</h2>
+            <div class="contact-layout">
+                <div class="contact-copy">
+                    <h3>Contact</h3>
+                    <p>
+                        궁금한 점이 있으면 언제든지 연락해주세요.<br>
+                        좋은 기회로 함께 할 수 있으면 좋겠습니다.
+                    </p>
+                </div>
 
-            <!-- 문의 폼 -->
-            <form 
+                <form
                     id="contact-form"
                     action="https://formspree.io/f/xeaqrjlp"
                     method="POST">
 
-                <div>
-                    <label for="name">이름</label>
-                    <input type="text" id="name" name="name">
-                    <p class="error-message" id="name-error"></p>
-                </div>
+                    <div class="form-row">
+                        <div>
+                            <label for="name">이름</label>
+                            <input type="text" id="name" name="name" placeholder="이름">
+                            <p class="error-message" id="name-error"></p>
+                        </div>
 
-                <div>
-                    <label for="email">이메일</label>
-                    <input type="email" id="email" name="email">
-                    <p class="error-message" id="email-error"></p>
-                </div>
+                        <div>
+                            <label for="email">이메일</label>
+                            <input type="email" id="email" name="email" placeholder="이메일">
+                            <p class="error-message" id="email-error"></p>
+                        </div>
+                    </div>
 
-                <div>
-                    <label for="message">메시지</label>
-                    <textarea id="message" name="message"></textarea>
-                    <p class="error-message" id="message-error"></p>
-                </div>
+                    <div>
+                        <label for="message">메시지</label>
+                        <textarea id="message" name="message" placeholder="메시지를 입력해주세요."></textarea>
+                        <p class="error-message" id="message-error"></p>
+                    </div>
 
-                <button type="submit">보내기</button>
+                    <button type="submit">보내기 →</button>
+                    <p id="form-success"></p>
+                </form>
 
-                <p id="form-success"></p>
+                <aside class="contact-card">
+                    <h3>Let's Build<br>Something<br>Together</h3>
 
-            </form>
+                    <a
+                        href="https://github.com/dldma"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        GitHub / dldma
+                    </a>
 
+                    <p>Embedded Systems</p>
+                    <p>Electronics</p>
+
+                    <div class="contact-circuit" aria-hidden="true">
+                        ─┬──○<br>
+                        &nbsp;├────○<br>
+                        ─┴──○
+                    </div>
+                </aside>
+            </div>
         </section>
-
     </main>
 
-    <!-- 페이지 하단 영역 -->
     <footer>
+        <div class="footer-inner">
+            <div>
+                <strong>Eunji</strong>
+                <span>&gt; embedded systems × electronics × software</span>
+            </div>
 
-        <!-- 저작권 -->
-        <p>&copy; 2026 이은지. All rights reserved.</p>
+            <p>&copy; 2026 이은지. All rights reserved.</p>
 
-        <!-- 소셜 링크 -->
-        <nav>
-            <a href="https://github.com/dldma"
-            target="_blank"
-            rel="noopener noreferrer">
-                GitHub
-            </a>
-        </nav>
+            <nav>
+                <a href="https://github.com/dldma" target="_blank" rel="noopener noreferrer">
+                    GitHub
+                </a>
+            </nav>
+        </div>
+    </footer>
 
-    </footer><!-- 맨 위로 이동 버튼 -->
-
-    <button
-        type="button"
-        id="scroll-top"
-        aria-label="페이지 맨 위로 이동">
-        ↑
-    </button>
+    <button type="button" id="scroll-top" aria-label="페이지 맨 위로 이동">↑</button>
 </body>
-
-
 </html>
